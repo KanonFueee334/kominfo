@@ -12,7 +12,38 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-                        <li class="sidebar-title">Menu</li>
+                        <li class="sidebar-item  ">
+                            <a href="index.html" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item  ">
+                            <a href="" class='sidebar-link'>
+                                <i class="bi bi-person-circle"></i>
+                                <span>Pengguna</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-title">Magang</li>
+
+                        <li class="sidebar-item  ">
+                            <a href="" class='sidebar-link'>
+                                <i class="bi bi-person-badge"></i>
+                                <span>Peserta</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item  ">
+                            <a href="" class='sidebar-link'>
+                                <i class="bi bi-calendar-check"></i>
+                                <span>Absensi</span>
+                            </a>
+                        </li>
+
+
+                        <!-- <li class="sidebar-title">Menu</li>
 
                         <li class="sidebar-item  ">
                             <a href="index.html" class='sidebar-link'>
@@ -351,7 +382,7 @@
                                 <span>Donate</span>
                             </a>
                         </li>
-
+ -->
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
