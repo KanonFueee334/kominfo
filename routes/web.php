@@ -25,3 +25,7 @@ Route::get('/be-home',function() {
 Route::get('/be-um',[UserController::class, 'index'])->name('be.um');
 
 Route::post('/be-um-add',[UserController::class, 'addUserSave'])->name('be.um.add');
+
+Route::get('mg-home', function(){
+    return view('home-magang');
+})->name('mg.home');

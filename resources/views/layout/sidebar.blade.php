@@ -28,6 +28,13 @@
 
                         <li class="sidebar-title">Magang</li>
 
+                        <li class="sidebar-item {{ Route::is('mg.home') ? 'active' : '' }} ">
+                            <a href="{{ route('mg.home') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item  ">
                             <a href="" class='sidebar-link'>
                                 <i class="bi bi-person-badge"></i>
