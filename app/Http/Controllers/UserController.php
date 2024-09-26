@@ -20,10 +20,14 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
+            'name' => 'required|string'
         ], [
             'username.required' => 'Username tidak boleh kosong',
             'password.required' => 'Password tidak boleh kosong',
+            'name.required' => 'Nama tidak boleh kosong',
         ]);
+
+
 
          $username = $request->input('username');
          $password = $request->input('password');

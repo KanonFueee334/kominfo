@@ -4,10 +4,18 @@
 
 @section('content')
 
+    <!-- Display success message -->
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
+    @endif
+
+    <!-- Display Validation Errors -->
+    @if($errors->any())
+        <div class="alert alert-danger">
+            Gagal menambahkan pengguna.<br/>Lihat pesan kesalahan pada form penambahan pengguna.
+        </div>
     @endif     
 
     <section>
@@ -55,9 +63,13 @@
                                 <div class="col-md-2">
                                     <label>Username</label>
                                 </div>
+                                
                                 <div class="col-md-10 form-group">
                                     <input type="text" id="username" class="form-control"
                                     name="username" placeholder="Username">
+                                    @error('username')
+                                        <div style="color: red;">* {{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-2">
                                     <label>Password</label>
@@ -65,6 +77,9 @@
                                 <div class="col-md-10 form-group">
                                     <input type="text" id="password" class="form-control"
                                     name="password" placeholder="Password">
+                                    @error('password')
+                                        <div style="color: red;">* {{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-2">
                                     <label>Nama</label>
@@ -72,6 +87,9 @@
                                 <div class="col-md-10 form-group">
                                     <input type="text" id="name" class="form-control"
                                     name="name" placeholder="Nama">
+                                    @error('name')
+                                        <div style="color: red;">* {{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-2">
                                     <label>Tgl Lahir</label>
