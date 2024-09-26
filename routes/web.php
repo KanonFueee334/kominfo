@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/abc',function() {
+Route::get('/be-home',function() {
     return view('home');
-});
+})->name('be.home');
+
+Route::get('/be-um',[UserController::class, 'index'])->name('be.um');
+
+Route::post('/be-um-add',[UserController::class, 'addUserSave'])->name('be.um.add');
