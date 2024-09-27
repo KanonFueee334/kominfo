@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AbsensiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,6 @@ Route::get('/be-um',[UserController::class, 'index'])->name('be.um');
 
 Route::post('/be-um-add',[UserController::class, 'addUserSave'])->name('be.um.add');
 
-Route::get('mg-home', function(){
-    return view('home-magang');
-})->name('mg.home');
+Route::get('mg-home', [AbsensiController::class, 'index'])->name('mg.home');
+
+Route::post('mg-absen-save', [AbsensiController::class, 'saveAbsensi'])->name('mg.absen.save');

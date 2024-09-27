@@ -13,30 +13,56 @@
                     <div class="card-body">
                         <div class="alert alert-secondary text-center">
                             <h5>Klik Untuk Absensi</h5>
-                            <a class="btn btn-danger rounded-pill btn-lg">ABSENSI</a>
+                            <form method="post" action="{{ route('mg.absen.save') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger rounded-pill btn-lg">ABSENSI</button>
+                            </form> 
                         </div>
+                            <!-- Display success message -->
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+
+                            <!-- Display Validation Errors -->
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    Gagal menyimpan absensi
+                                </div>
+                            @endif  
                         <div>
-                            <table class="table table-sm">
+                            <table class="table table-sm" style="font-size: 1.25rem; font-weight: 700;">
+                               
                                 <tr>
                                     <td>
-                                        <h5>Absen Masuk</h5>
+                                        Absen Masuk
                                     </td>
                                     <td>
-                                        <h5>:</h5>
+                                        :
                                     </td>
                                     <td>
-                                        <h5>07:00</h5>
+                                        @if(!empty($absensiToday[0]->masuk))
+                                            {{ $absensiToday[0]->masuk }}
+                                        @else
+                                            --
+                                        @endif
                                     </td>
                                 </tr>
+                                
                                 <tr>
                                     <td>
-                                        <h5>Absen Pulang</h5>
+                                        Absen Pulang
                                     </td>
                                     <td>
-                                        <h5>:</h5>
+                                        :
                                     </td>
                                     <td>
-                                        <h5>16:00</h5>
+                                        @if(!empty($absensiToday[0]->pulang))
+                                            {{ $absensiToday[0]->pulang }}
+                                        @else
+                                            --
+                                        @endif
                                     </td>
                                 </tr>
                             </table>
@@ -51,50 +77,27 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                                            <table class="table table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th>NO</th>
-                                                        <th>TANGGAL</th>
-                                                        <th>WAKTU</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-bold-500">Michael Right</td>
-                                                        <td>$15/hr</td>
-                                                        <td class="text-bold-500">UI/UX</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold-500">Morgan Vanblum</td>
-                                                        <td>$13/hr</td>
-                                                        <td class="text-bold-500">Graphic concepts</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold-500">Tiffani Blogz</td>
-                                                        <td>$15/hr</td>
-                                                        <td class="text-bold-500">Animation</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold-500">Ashley Boul</td>
-                                                        <td>$15/hr</td>
-                                                        <td class="text-bold-500">Animation</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-bold-500">Mikkey Mice</td>
-                                                        <td>$15/hr</td>
-                                                        <td class="text-bold-500">Animation</td>
-
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <br/>
-                                        <h5 class="text-center"><a href="">Lihat selengkapnya ...</a></h5>
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>TANGGAL</th>
+                                        <th>WAKTU</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   @for ($i = 0; $i < count($absenList); $i++)
+                                   <tr>
+                                    <td>{{ $i+1 }}</td>
+                                    <td>{{ $absenList[$i]->tgl }}</td>
+                                    <td>{{ $absenList[$i]->waktu }}</td>
+                                </tr>
+                                @endfor
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <h5 class="text-center"><a href="">Lihat selengkapnya ...</a></h5>
                     </div>
                 </div>
             </div>
