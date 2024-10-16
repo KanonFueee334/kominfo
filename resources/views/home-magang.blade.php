@@ -97,7 +97,7 @@
                         </table>
                     </div>
                     <br/>
-                    <h5 class="text-center"><a href="">Lihat selengkapnya ...</a></h5>
+                    <h5 class="text-center"><a href="{{ route('mg.absen.history') }}">Lihat selengkapnya ...</a></h5>
                     </div>
                 </div>
             </div>

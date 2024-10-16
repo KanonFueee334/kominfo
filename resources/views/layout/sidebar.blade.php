@@ -35,6 +35,20 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item {{ Route::is('mg.absen.history') ? 'active' : '' }} ">
+                            <a href="{{ route('mg.absen.history') }}" class='sidebar-link'>
+                                <i class="bi bi-clock-history"></i>
+                                <span>Riwayat Absensi</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item  ">
+                            <a href="{{ route('mg.recap') }}" class='sidebar-link'>
+                                <i class="bi bi-clipboard-check"></i>
+                                <span>Rekap Absensi</span>
+                            </a>
+                        </li>
+
                         <li class="sidebar-item  ">
                             <a href="" class='sidebar-link'>
                                 <i class="bi bi-person-badge"></i>
@@ -42,12 +56,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item  ">
-                            <a href="" class='sidebar-link'>
-                                <i class="bi bi-calendar-check"></i>
-                                <span>Absensi</span>
-                            </a>
-                        </li>
+                        
 
 
                         <!-- <li class="sidebar-title">Menu</li>
