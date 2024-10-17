@@ -54,36 +54,86 @@ class AbsensiController extends Controller
         return view('absensi-history',['absenList'=>$absenList]);
     }
 
-    public function recap()
+    public function recap($dateStart, $dateEnd)
     {
-        $userId = 3;
+        $data = [];
 
-        $query = "SELECT cal.*, absen.*
-FROM
-(WITH RECURSIVE DateRange AS (
-SELECT '2024-09-01' AS date
-UNION ALL
-SELECT date + INTERVAL 1 DAY
-FROM DateRange
-WHERE date < '2024-09-30'
-)
-SELECT date AS tgl
-FROM DateRange) cal
-LEFT JOIN
-(SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, STR_TO_DATE(a.tgl, '%d-%m-%Y')) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
-FROM absensi_recap_view a
-LEFT JOIN izin b ON a.user_id = b.user_id AND STR_TO_DATE(a.tgl, '%d-%m-%Y') = b.leave_date
-WHERE a.user_id = 3
-UNION
-SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, STR_TO_DATE(a.tgl, '%d-%m-%Y')) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
-FROM absensi_recap_view a
-RIGHT JOIN izin b ON a.user_id = b.user_id AND STR_TO_DATE(a.tgl, '%d-%m-%Y') = b.leave_date
-WHERE b.user_id = 3
-ORDER BY tgl_absen ASC) absen
-ON cal.tgl = absen.tgl_absen;";
+        if(!empty($dateStart) && !empty($dateEnd)){
+            $query = "SELECT cal.*, absen.* 
+            FROM
+            (WITH RECURSIVE DateRange AS (
+            SELECT '".$dateStart."' AS date
+            UNION ALL
+            SELECT date + INTERVAL 1 DAY
+            FROM DateRange
+            WHERE date < '".$dateEnd."'
+            )
+            SELECT date AS tgl
+            FROM DateRange) cal
+            LEFT JOIN
+            (SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, STR_TO_DATE(a.tgl, '%d-%m-%Y')) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
+            FROM absensi_recap_view a
+            LEFT JOIN izin b ON a.user_id = b.user_id AND STR_TO_DATE(a.tgl, '%d-%m-%Y') = b.leave_date
+            WHERE a.user_id = 3
+            UNION
+            SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, STR_TO_DATE(a.tgl, '%d-%m-%Y')) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
+            FROM absensi_recap_view a
+            RIGHT JOIN izin b ON a.user_id = b.user_id AND STR_TO_DATE(a.tgl, '%d-%m-%Y') = b.leave_date
+            WHERE b.user_id = 3
+            ORDER BY tgl_absen ASC) absen
+            ON cal.tgl = absen.tgl_absen;";
 
-        $data = DB::select($query);
-
+            $data = DB::select($query);
+        }
+        
         return view('absensi-recap', ['data'=>$data]);
     }
+
+    public function recapMonthly(Request $request)
+    {
+        $year = $request->input('input-year');
+        $month = $request->input('input-month');
+
+        $dateStart = $this->createDateFormat($year,$month,'01');
+        $dateEnd = $this->createDateFormat('0000','00','00');
+
+        switch ($month) {
+            case '1':
+            case '3':
+            case '5':
+            case '7':
+            case '8':
+            case '10':
+            case '12':
+                $dateEnd = $this->createDateFormat($year,$month,'31');
+                break;
+            case '4':
+            case '6':
+            case '9':
+            case '11':
+                $dateEnd = $this->createDateFormat($year,$month,'30');
+                break;
+            default:
+                if($this->isLeapYear($year)){
+                    $dateEnd = $this->createDateFormat($year,$month,'29');
+                }else{
+                    $dateEnd = $this->createDateFormat($year,$month,'28');
+                }
+                break;
+        }
+
+        return redirect()->route('mg.recap',['start'=>$dateStart, 'end'=>$dateEnd])->withInput($request->all());
+    }
+
+    private function createDateFormat($year, $month, $date){
+        return $year.'-'.str_pad($month,2,"0",STR_PAD_LEFT).'-'.$date;
+    }
+
+    private function isLeapYear($year) {
+    if (($year % 4 == 0 && $year % 100 != 0) || ($year % 400 == 0)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 }

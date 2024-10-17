@@ -35,4 +35,6 @@ Route::post('mg-absen-save', [AbsensiController::class, 'saveAbsensi'])->name('m
 
 Route::get('mg-absen-history', [AbsensiController::class, 'history'])->name('mg.absen.history');
 
-Route::get('mg-recap', [AbsensiController::class, 'recap'])->name('mg.recap');
+Route::get('/mg-recap/{start}/{end}', [AbsensiController::class, 'recap'])->name('mg.recap');
+
+Route::post('mg-recap-m', [AbsensiController::class, 'recapMonthly'])->name('mg.recap.m');

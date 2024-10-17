@@ -43,7 +43,7 @@
                         </li>
 
                         <li class="sidebar-item  ">
-                            <a href="{{ route('mg.recap') }}" class='sidebar-link'>
+                            <a href="{{ route('mg.recap',['start'=>0, 'end'=>0]) }}" class='sidebar-link'>
                                 <i class="bi bi-clipboard-check"></i>
                                 <span>Rekap Absensi</span>
                             </a>
