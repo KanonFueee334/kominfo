@@ -71,12 +71,12 @@ class AbsensiController extends Controller
             SELECT date AS tgl
             FROM DateRange) cal
             LEFT JOIN
-            (SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, STR_TO_DATE(a.tgl, '%d-%m-%Y')) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
+            (SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, a.tgl) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
             FROM absensi_recap_view a
             LEFT JOIN izin b ON a.user_id = b.user_id AND STR_TO_DATE(a.tgl, '%d-%m-%Y') = b.leave_date
             WHERE a.user_id = 3
             UNION
-            SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, STR_TO_DATE(a.tgl, '%d-%m-%Y')) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
+            SELECT IF(a.user_id IS NULL, b.user_id, a.user_id) AS user_id, IF(a.tgl IS NULL, b.leave_date, a.tgl) AS tgl_absen, a.masuk, a.pulang, a.terlambat, a.cepat_pulang, b.user_id AS usr_id, b.leave_date AS tgl_izin, b.type, b.note, b.letter
             FROM absensi_recap_view a
             RIGHT JOIN izin b ON a.user_id = b.user_id AND STR_TO_DATE(a.tgl, '%d-%m-%Y') = b.leave_date
             WHERE b.user_id = 3
