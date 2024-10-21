@@ -16,8 +16,9 @@
     
     @if(Route::is('be.um'))
         <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
+    @elseif(Route::is('mg.absen.history') || Route::is('mg.recap'))
+        <link rel="stylesheet" href="{{ asset('vendors/simple-datatables/style.css') }}">
     @else
-
     @endif
 </head>
 
@@ -41,7 +42,7 @@
                             <div class="col-12 col-md-6 order-md-2 order-first">
                                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                     <ol class="breadcrumb">
-                                        @if(!Route::is('be.home'))
+                                        @if(!Route::is('be.home') && !Route::is('mg.home'))
                                             <li class="breadcrumb-item"><a href="{{ route('be.home') }}">Beranda</a></li>
                                         @endif
 
@@ -86,8 +87,14 @@
             let table1 = document.querySelector('#user-table');
             let dataTable = new simpleDatatables.DataTable(table1);
         </script>
+    @elseif(Route::is('mg.absen.history') || Route::is('mg.recap'))
+        <script src="{{ asset('vendors/simple-datatables/simple-datatables.js') }}"></script>
+        <script>
+            // Simple Datatable
+            let table1 = document.querySelector('#absensi-table');
+            let dataTable = new simpleDatatables.DataTable(table1);
+        </script>
     @else
-
     @endif
 </body>
 
