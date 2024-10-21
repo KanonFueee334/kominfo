@@ -18,11 +18,11 @@
                             <h6>Tahun</h6>
                             <fieldset class="form-group">
                                 <select class="form-select" id="slc-year" name="input-year">
-                                    <option value="2024">2024</option>
-                                    <option value="2025">2025</option>
-                                    <option value="2026">2026</option>
-                                    <option value="2027">2027</option>
-                                    <option value="2028">2028</option>
+                                    <option value="2024" {{ old('input-year') == 2024 ? 'selected' : '' }}>2024</option>
+                                    <option value="2025" {{ old('input-year') == 2025 ? 'selected' : '' }}>2025</option>
+                                    <option value="2026" {{ old('input-year') == 2026 ? 'selected' : '' }}>2026</option>
+                                    <option value="2027" {{ old('input-year') == 2027 ? 'selected' : '' }}>2027</option>
+                                    <option value="2028" {{ old('input-year') == 2028 ? 'selected' : '' }}>2028</option>
                                 </select>
                             </fieldset>
                         </div>  
@@ -99,8 +99,12 @@
                                 @endif
                             </td>
                             <td>
-                                @if(empty($data[$i]->masuk) && empty($data[$i]->pulang))
+                                @if(!empty($data[$i]->tgl_izin))
+                                    {{ $data[$i]->note }}
+                                @elseif(empty($data[$i]->masuk) && empty($data[$i]->pulang))
                                     Tidak Absen
+                                @else
+                                    -
                                 @endif
                             </td>
                         </tr>
