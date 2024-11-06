@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,9 @@ use App\Http\Controllers\AbsensiController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/login', function () { return view('login'); });
+
+Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
 
 Route::get('/be-home',function() {
     return view('home');
