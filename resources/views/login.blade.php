@@ -35,12 +35,20 @@
 
                     <form method="post" action="{{ route('auth') }}">
                         @csrf
+
+                        @error('nama_pengguna')
+                            <div style="color: red;">* {{ $message }}</div>
+                        @enderror
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="text" class="form-control form-control-xl" placeholder="Username" name="nama_pengguna">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
+
+                        @error('kata_sandi')
+                            <div style="color: red;">* {{ $message }}</div>
+                        @enderror
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input type="password" class="form-control form-control-xl" placeholder="Password" name="kata_sandi">
                             <div class="form-control-icon">
