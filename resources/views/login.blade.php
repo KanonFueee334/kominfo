@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pages/auth.css') }}">
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body>
@@ -36,27 +38,39 @@
                     <form method="post" action="{{ route('auth') }}">
                         @csrf
 
-                        @error('nama_pengguna')
-                            <div style="color: red;">* {{ $message }}</div>
-                        @enderror
-                        <div class="form-group position-relative has-icon-left mb-4">
+                        <div class="form-group position-relative has-icon-left mb-3">
+                            @error('nama_pengguna')
+                                <div style="color: red;">* {{ $message }}</div>
+                            @enderror
+
                             <input type="text" class="form-control form-control-xl" placeholder="Username" name="nama_pengguna">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
 
-                        @error('kata_sandi')
-                            <div style="color: red;">* {{ $message }}</div>
-                        @enderror
-                        <div class="form-group position-relative has-icon-left mb-4">
+                        
+                        <div class="form-group position-relative has-icon-left mb-3">
+                            @error('kata_sandi')
+                                <div style="color: red;">* {{ $message }}</div>
+                            @enderror
+
                             <input type="password" class="form-control form-control-xl" placeholder="Password" name="kata_sandi">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
+
                         
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+                        <div class="form-group position-relative mb-3" style="text-align: center;" >
+                            @error('g-recaptcha-response')
+                                <div style="color: red;">* {{ $message }}</div>
+                            @enderror
+                            <div class="g-recaptcha" style="display: flex; justify-content: center;" 
+                                data-sitekey="6LfRv3cqAAAAAKGj4DN1I-rJBInMwHcOTkndyo_R"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-3">Log in</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
                         

@@ -18,7 +18,14 @@ use App\Http\Controllers\AuthController;
 
 /* AUTH */
 
-Route::get('/login', function () { return view('login'); })->name('login');
+Route::get('/login', function () { 
+
+	if(Auth::check()){
+		return redirect()->route('be.home');
+	}
+
+	return view('login'); 
+})->name('login');
 
 Route::post('/auth', [AuthController::class, 'auth'])->name('auth');
 
@@ -26,7 +33,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /* ADMIN */
 
-Route::get('/be-home',function() { return view('home'); })->name('be.home');
+Route::get('/be-home',function() { return view('home'); })->name('be.home')->middleware('auth');
 
 Route::get('/be-um',[UserController::class, 'index'])->name('be.um')->middleware('auth');
 
