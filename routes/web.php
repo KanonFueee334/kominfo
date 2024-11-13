@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,9 @@ Route::get('mg-absen-history', [AbsensiController::class, 'history'])->name('mg.
 Route::get('/mg-recap/{start}/{end}', [AbsensiController::class, 'recap'])->name('mg.recap')->middleware('auth');
 
 Route::post('mg-recap-m', [AbsensiController::class, 'recapMonthly'])->name('mg.recap.m')->middleware('auth');
+
+/* SETTING */
+
+Route::get('/set-pass',[SettingController::class, 'changePassword'])->name('set.password')->middleware('auth');
+
+Route::post('/set-pass-save',[SettingController::class, 'changePasswordSave'])->name('set.password.save')->middleware('auth');

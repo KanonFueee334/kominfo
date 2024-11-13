@@ -47,6 +47,10 @@ class AuthController extends Controller
                 if($md5_pass == $user['password']){
                     Auth::login($user);
 
+                    session([
+                        'user_id' => $user['id']
+                    ]);
+
                     return redirect()->intended('/be-home');
                 }else{
                     session()->flash('error', 'Password salah');
