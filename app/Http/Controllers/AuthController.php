@@ -36,7 +36,7 @@ class AuthController extends Controller
             $username = $request->input('nama_pengguna');
             $password = $request->input('kata_sandi');
 
-            $user = User::select('id','name','password')
+            $user = User::select('id','name','password','role')
                 ->where('status',1)
                 ->where('username',$username)
                 ->first();
@@ -48,7 +48,9 @@ class AuthController extends Controller
                     Auth::login($user);
 
                     session([
-                        'user_id' => $user['id']
+                        'user_id' => $user['id'],
+                        'name' => $user['name'],
+                        'role' => $user['role']
                     ]);
 
                     return redirect()->intended('/be-home');
