@@ -19,8 +19,12 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">{{ session('name') }}</h6>
-                                            <p class="mb-0 text-sm text-gray-600">{{ session('role') }}</p>
+                                            <?php 
+                                                $name = (Auth::user())->name;
+                                                $role = (Auth::user())->role;
+                                            ?>
+                                            <h6 class="mb-0 text-gray-600">{{ $name }}</h6>
+                                            <p class="mb-0 text-sm text-gray-600">{{ $role }}</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">

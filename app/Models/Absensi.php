@@ -10,7 +10,6 @@ class Absensi extends Model
     use HasFactory;
 
     protected $table = 'absensi';
-
-    // Disable timestamps
+    protected $primaryKey = 'id';
     public $timestamps = false;
 }

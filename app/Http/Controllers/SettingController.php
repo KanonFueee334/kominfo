@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
 {
@@ -34,7 +35,7 @@ class SettingController extends Controller
             'password_confirmation.required' => 'Konfirmasi password baru tidak boleh kosong'
         ]);
 
-        $userId = session('user_id');
+        $userId = (Auth::user())->id;
 
         // take current password
         $data = User::select('password')

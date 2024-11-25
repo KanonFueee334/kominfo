@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AbsensiController extends Controller
 {
 
     public function index()
     {
-        $userId = session('user_id');
+        $userId = (Auth::user())->id;
 
         $absensiToday = DB::table(DB::raw("(SELECT time FROM `absensi` WHERE user_id = $userId AND DATE(time) = CURDATE()) as satu"))
                     ->select(DB::raw("DATE_FORMAT(MIN(satu.time),'%H:%i:%s') as masuk, DATE_FORMAT(MAX(satu.time),'%H:%i:%s') as pulang"))
@@ -28,7 +29,7 @@ class AbsensiController extends Controller
 
     public function saveAbsensi()
     {
-        $userId = session('user_id');
+        $userId = (Auth::user())->id;
 
         $absensi = new Absensi();
         $absensi->user_id = $userId;
@@ -44,7 +45,7 @@ class AbsensiController extends Controller
 
     public function history()
     {
-        $userId = session('user_id');
+        $userId = (Auth::user())->id;
 
         $absenList = Absensi::select(DB::raw("DATE_FORMAT(time, '%d-%m-%Y') as tgl, DATE_FORMAT(time, '%H:%i:%s') as waktu"))
                     ->where('user_id',$userId)
@@ -56,7 +57,7 @@ class AbsensiController extends Controller
 
     public function recap($dateStart, $dateEnd)
     {
-        $userId = session('user_id');
+        $userId = (Auth::user())->id;
         $data = [];
 
         if(!empty($dateStart) && !empty($dateEnd)){
